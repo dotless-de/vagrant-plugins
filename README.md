@@ -31,8 +31,10 @@ Vagrant.require_plugin 'vagrant-plugins'
 ## Usage
 
 ```bash
-$ vagrant plugins
+$ vagrant plugins [-a|--all]
 ```
+
+* `-a|--all` : Display *vagrant's* builtin plugins as well.
 
 ## Contributing
 
