@@ -3,7 +3,10 @@ vagrant-plugins
 
 A vagrant plugin to list active vagrant plugins.
 
+Since *vagrant 1.1* (which is not yet released) you need to specify which plugins you want to load. You may either use the global in a `.vagrant.rc` or the projects `Vagrantfile`.
+This can get a bit confusing when having a lot of different configurations or projects. 
 
+This plugin aims to help you keeping track of which plugins are loaded in your project.
 
 ## Installation
 
