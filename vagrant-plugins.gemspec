@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["robert@dotless.de"]
   gem.description   = %q{vagrant-plugins is a vagrant plugin to list all vagrant plugins loaded in the current vagrant environment}
   gem.summary       = %q{vagrant-plugins lists active vagrant plugins}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/dotless-de/vagrant-plugins"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
