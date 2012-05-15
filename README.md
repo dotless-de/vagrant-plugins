@@ -13,13 +13,13 @@ This plugin aims to help you keeping track of which plugins are loaded in your p
 If you use the gem version of Vagrant, use:
 
 ```bash
-$ gem install vagrant-dns
+$ gem install vagrant-plugins
 ```
 
 otherwise, use:
 
 ```bash
-$ vagrant gem install vagrant-dns
+$ vagrant gem install vagrant-plugins
 ```
 
 And add this line to your `.vagrantrc` or `Vagrantfile`:
