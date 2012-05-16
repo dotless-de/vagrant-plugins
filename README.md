@@ -54,7 +54,7 @@ $ vagrant plugins -v
    *  	plugins           	List all vagrant plugins loaded in the current vagrant environment                                          
 ```
 
-Note, that the feature columns are not delemited by tab, an asterisk (`*`) will indecate that a feature is present.   
+Note, that the feature columns are not delimited by tab, an asterisk (`*`) will indicate that a feature is present.   
 For example above: *vbguest management* registers *commands*, *action hooks* and *configs*, while *plugins* only registers *commands*.
 
 ## Contributing
