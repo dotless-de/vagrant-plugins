@@ -46,9 +46,9 @@ module VagrantPlugininspection
               :hosts        => !!plugin.data[:hosts],
               :guests       => !!plugin.data[:guests],
               :provisioners => !!plugin.data[:provisioners],
-              :commands     => !!plugin.data[:command],
+              :commands     => plugin.data[:command] && !plugin.command.to_hash.empty?,
               :action_hooks => !!plugin.data[:action_hooks],
-              :configs      => !!plugin.data[:config],
+              :configs      => plugin.data[:config] && !plugin.config.to_hash.empty?,
             }) if options[:verbose]
 
             # return the plugins info Hash

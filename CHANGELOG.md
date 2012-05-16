@@ -1,3 +1,7 @@
+# v0.2.1
+
+* fixes false positive feature detection for comfigs and commands
+
 # v0.2.0
 
 * Adds a verbose flag. Informs about plugin features such as "provides commands" or "action hook" etc.
