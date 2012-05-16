@@ -31,10 +31,31 @@ Vagrant.require_plugin 'vagrant-plugins'
 ## Usage
 
 ```bash
-$ vagrant plugins [-a|--all]
+$ vagrant plugins [-a|--all] [-H|--no-head] [-v|--verbose]
 ```
 
 * `-a|--all` : Display *vagrant's* builtin plugins as well.
+* `-H|--no-head` : Do _not_ print descriptive column headings
+* `-v|--verbose` : Be verbose and display plugin features
+
+The *verbose* flag will print a check map like this:
+
+```bash
+$ vagrant plugins -v
++- hosts
+|+- guests
+||+- provisioners
+|||+- commands
+||||+- action_hooks
+|||||+- configs
+||||||	name              	description                                                                                                  
+------	------------------	-------------------------------------------------------------------------------------------------------------
+   ***	vbguest management	Provides automatic and/or manual management of the VirtualBox Guest Additions inside the Vagrant environment.                
+   *  	plugins           	List all vagrant plugins loaded in the current vagrant environment                                          
+```
+
+Note, that the feature columns are not delemited by tab, an asterisk (`*`) will indecate that a feature is present.   
+For example above: *vbguest management* registers *commands*, *action hooks* and *configs*, while *plugins* only registers *commands*.
 
 ## Contributing
 
