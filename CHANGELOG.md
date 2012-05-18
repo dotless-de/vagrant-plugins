@@ -1,3 +1,8 @@
+# v0.2.2
+
+* include this plugin to the list of *buildin plugins*, which will cause it the be hidden by default.
+* get the "no plugins" detection working. 
+
 # v0.2.1
 
 * fixes false positive feature detection for comfigs and commands

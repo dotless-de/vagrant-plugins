@@ -27,37 +27,40 @@ module VagrantPlugininspection
 
       ui = VagrantPlugininspection::UI::Columnized.new('plugins')
 
-      if Vagrant.plugin("1").registered.empty?
+      builtins = [VagrantPlugininspection::Plugin]
+      builtins += VagrantPlugins.constants.map { |p| 
+        VagrantPlugininspection::Inflector::constantize("VagrantPlugins::#{p}::Plugin") 
+      }
+
+      plugins = Vagrant.plugin("1").registered - builtins
+
+      if !options[:all] && plugins.empty?
         ui.info "No plugins registered"
-      else
+        # return a falsy value to the shell
+        return 1
+      end
 
-        builtins = VagrantPlugins.constants.map { |p| 
-          VagrantPlugininspection::Inflector::constantize("VagrantPlugins::#{p}::Plugin") 
-        } if !options[:all]
-        
-        plugins = Vagrant.plugin("1").registered.map { |plugin|
-          if options[:all] || !builtins.include?(plugin)
-            info = {
-              :name => plugin.name, 
-              :description => plugin.description
-            }
+      infos = (options[:all] ? Vagrant.plugin("1").registered : plugins).map { |plugin|
+        info = {
+          :name => plugin.name, 
+          :description => plugin.description
+        }
 
-            info.merge!({
-              :hosts        => !!plugin.data[:hosts],
-              :guests       => !!plugin.data[:guests],
-              :provisioners => !!plugin.data[:provisioners],
-              :commands     => plugin.data[:command] && !plugin.command.to_hash.empty?,
-              :action_hooks => !!plugin.data[:action_hooks],
-              :configs      => plugin.data[:config] && !plugin.config.to_hash.empty?,
-            }) if options[:verbose]
+        info.merge!({
+          :hosts        => !!plugin.data[:hosts],
+          :guests       => !!plugin.data[:guests],
+          :provisioners => !!plugin.data[:provisioners],
+          :commands     => plugin.data[:command] && !plugin.command.to_hash.empty?,
+          :action_hooks => !!plugin.data[:action_hooks],
+          :configs      => plugin.data[:config] && !plugin.config.to_hash.empty?,
+        }) if options[:verbose]
 
-            # return the plugins info Hash
-            info
-          end
-        }.compact
+        # return the plugins info Hash
+        info
+      }.compact
 
-        if options[:verbose] && !options[:no_heads]
-          head = <<-EOS
+      if options[:verbose] && !options[:no_heads]
+        head = <<-EOS
 +- hosts
 |+- guests
 ||+- provisioners
@@ -65,26 +68,24 @@ module VagrantPlugininspection
 ||||+- action_hooks
 |||||+- configs
 EOS
-          ui.info head, :prefix => false
-        end
-
-        ui.print_columns(plugins, :heads => !options[:no_heads]) do 
-          if options[:verbose]
-            column :hosts, :name => '|' 
-            column :guests, :name => '|'
-            column :provisioners, :name => '|'
-            column :commands, :name => '|'
-            column :action_hooks, :name => '|'
-            column :configs, :name => '|'
-            seperator "\t"
-          end
-          column :name
-          seperator "\t"
-          column :description
-        end
-
+        ui.info head, :prefix => false
       end
-    end
 
-  end
+      ui.print_columns(infos, :heads => !options[:no_heads]) do 
+        if options[:verbose]
+          column :hosts, :name => '|' 
+          column :guests, :name => '|'
+          column :provisioners, :name => '|'
+          column :commands, :name => '|'
+          column :action_hooks, :name => '|'
+          column :configs, :name => '|'
+          seperator "\t"
+        end
+        column :name
+        seperator "\t"
+        column :description
+      end
+      
+    end # execute
+  end # Command
 end
